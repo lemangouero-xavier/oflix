@@ -2,10 +2,11 @@
 
 namespace App\Controller;
 
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
 
-class MainController
+class MainController extends AbstractController
 {
     /**
      * page par default
@@ -14,6 +15,6 @@ class MainController
      */
     public function home(): Response
     {
-        return new Response("putain ca marche !!!!!!");
+        return $this->render('main/index.html.twig', ["information_test" => "l'information que je veux afficher"]);
     }
 }

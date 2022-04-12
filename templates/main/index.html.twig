@@ -1,0 +1,21 @@
+{#ceci est un commentaire twig#}
+{# on utilise {%%} pour toutes les commandes
+    extends
+    block
+    if
+    for / foreach
+    en soit, tout ce qui n'ecrit pas du code donc tout le coté dynamique
+#}
+{% extends 'base.html.twig' %}
+
+{% block title %}
+oflix
+{% endblock %}
+
+{% block body %}
+{# pour ecrire une variable, on utilise {{ }} 
+c'est comme le short echo tag de php
+#}
+<h1>{{ information_test }}</h1>
+kflezjfkljreklfjrekljf  kjlffgjkrejfgklrejf kj fkjkjerkfljerfjkrek jfklerjkfjrekljfre fjerkjfkrejfklrej fjkrejfklrejfklrej fjkrejfklrejfklrej
+{% endblock %}
