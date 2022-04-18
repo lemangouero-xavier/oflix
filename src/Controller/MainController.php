@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Models\Movies;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\Routing\Annotation\Route;
 
 
@@ -61,5 +62,31 @@ class MainController extends AbstractController
     public function favorites()
     {
         return $this->render('main/favorites.html.twig');
+    }
+    /**
+     * changement du theme (couleur noir ou jaune de la navbar)
+     * 
+     * @Route("/theme/toggle", name="theme_switcher")
+     * @return void
+     */
+    public function themeSwitcher(SessionInterface $session) 
+    {
+        //todo a déplacer dans le UserController
+        //j'ai besoin d une classe géréé par le framework et que cette classe soit instancié/crée en auto 
+        //pour cela je vais utiliser le principe d'injection de dépendance
+        //de ce fait mon code est dependant d'une classe: SessionInterface
+        //objectif: pouvoir changer de theme et stocker le nom theme actif et/ou passer à l'autre theme
+        // anciennement $_SESSION['theme]
+        // fournit 'netflix' si la clé theme n'existe
+        $theme = $session->get('theme', 'netflix');
+        if ($theme== 'netflix') {
+            $session->set('theme', 'allocine');
+        } else {
+            $session->set('theme', 'netflix');
+        }
+        // onredirige l'user vers la home
+        //todo ux redirect vers la page courante 
+        return $this->redirectToRoute("main_home");
+
     }
 }

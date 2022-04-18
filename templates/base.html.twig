@@ -22,7 +22,11 @@
 
     <body>
     <!-- Nav -->
+    {% if app.session.get('theme', 'netflix') == 'netflix'%}
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    {% else %}
+    <nav class="navbar navbar-expand-lg navbar-light bg-warning"> 
+    {% endif %}
         <div class="container-fluid">
             <a href="{{ path('main_home') }}" class="d-flex align-items-center mb-2 mb-lg-0 text-white text-decoration-none header-logo">
                 <img src="{{ asset('assets/favicon.png') }}" height="24" alt="Logo O'flix">
@@ -75,7 +79,7 @@
     <!-- footer -->
     <footer class="container-fluid py-4 border-top text-center">
         <span class="text-muted">O'flix made with &hearts; at O'clock !
-            <br><small>Thème :<a href="" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>Netflix</a></small></a>
+            <br><small>Thème :<a href="{{ path('main_theme_switcher') }}" class="link-secondary text-decoration-none"><i class="bi bi-toggle-on mx-1"></i>Netflix</a></small></a>
         </span>
     </footer>
         <!-- Optional JavaScript; choose one of 
