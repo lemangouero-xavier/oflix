@@ -1,33 +1,11 @@
-{#ceci est un commentaire twig#}
-{# on utilise {%%} pour toutes les commandes
-    extends
-    block
-    if
-    for / foreach
-    en soit, tout ce qui n'ecrit pas du code donc tout le coté dynamique
-#}
 {% extends 'base.html.twig' %}
 
 {% block title %}
-oflix
+oflix - list
 {% endblock %}
 
 {% block body %}
-{# pour ecrire une variable, on utilise {{ }} 
-c'est comme le short echo tag de php
-<h1>{{ information_test }}</h1>
-#}
-
-    <!-- main -->
-    <div class="my-5 py-5 text-center">
-        <img src="{{ asset('assets/favicon.png') }}" height="100" alt="Logo O'flix" class="mb-3">
-        <h1 class="display-6 fw-bold">Films, séries TV et popcorn en illimité.</h1>
-        <div class="col-lg-6 mx-auto">
-            <p class="lead mb-4 text-muted">Où que vous soyez. Gratuit pour toujours.</p>
-        </div>
-    </div>
-
-    <div class="container-xl bg-light p-5 border-top">
+<div class="container-xl bg-light p-5 border-top">
 
         <div class="row mb-2">
 
@@ -55,21 +33,21 @@ c'est comme le short echo tag de php
 
             <div class="col-12 col-lg-9">
 
-                <h2 class="text-muted fw-bold mb-4">Les nouveautés</h2>
-                {# en mettant key dans le for in, je demande a la boucle de me donner la clé et la valeur #}
-                {% for key, movie in movies %}
-                    <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
-                    <!-- <div class="col-4 movie__poster" style="background-image: url(https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg);"> -->
-                    <div class="col-4 movie__poster" style="background-image: url({{ movie.poster }});">
-                        <img src="{{ asset('assets/images/poster-placeholder.png') }}" class="img-fluid">
+                <h2 class="text-muted fw-bold mb-4">Les films et séries/Résultats de recherche</h2>
+
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
+                    <div class="col-4 movie__poster" style="background-image: url(https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg);">
+                        <img src="images/poster-placeholder.png" class="img-fluid">
                         <!-- img src="https://m.media-amazon.com/images/M/MV5BNThmZGY4NzgtMTM4OC00NzNkLWEwNmEtMjdhMGY5YTc1NDE4XkEyXkFqcGdeQXVyMTQxNzMzNDI@._V1_SX300.jpg" class="img-fluid" -->
                     </div>
                     <div class="col-8 p-4 d-flex flex-column position-static">
-                        <a href="./favorites.html" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
-                        <strong class="d-inline-block mb-2 text-primary">{{ movie.type }}</strong>
-                        <h3 class="mb-1">{{ movie.title }}</h3>
-                        <div class="mb-1 text-muted">{{ movie.duration }}min</div>
-                        <p><small>{{ movie.summary }}.</small>
+                        <a href="" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-plus"></i></a>
+                        <strong class="d-inline-block mb-2 text-primary">Film</strong>
+                        <h3 class="mb-1">A Bug's Life</h3>
+                        <div class="mb-1 text-muted">93 min</div>
+                        <p><small>Tilt, fourmi quelque peu tête en l'air, détruit par
+                                inadvertance la
+                                récolte de la saison.</small>
                         </p>
                         <div class="d-flex" style="color: orange;">
                             <i class="bi bi-star-fill"></i>
@@ -77,16 +55,44 @@ c'est comme le short echo tag de php
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-fill"></i>
                             <i class="bi bi-star-half"></i>
-                            <span class="ps-1">{{ movie.rating }}</span>
+                            <span class="ps-1">4.8</span>
                         </div>
-                        <a href="{{ path('main_show', {'id' : key}) }}" class="fs-1 mt-3 text-danger align-self-start">
+                        <a href="./show.html" class="fs-1 mt-3 text-danger align-self-start">
                             <i class="bi bi-arrow-right-square"></i>
                         </a>
                     </div>
                 </div>
 
-                {% endfor %}
-                
+                <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
+                    <div class="col-4 movie__poster" style="background-image: url(https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg);">
+                        <!-- img src="https://m.media-amazon.com/images/M/MV5BYTRiNDQwYzAtMzVlZS00NTI5LWJjYjUtMzkwNTUzMWMxZTllXkEyXkFqcGdeQXVyNDIzMzcwNjc@._V1_SX300.jpg"
+                            class="img-fluid" -->
+                        <img src="images/poster-placeholder.png" alt="">
+                    </div>
+                    <div class="col-8 p-4 d-flex flex-column position-static">
+                        <a href="" class="movie__favorite fs-1 my-2 mx-3 link-danger"><i class="bi bi-bookmark-x-fill"></i></a>
+                        <strong class="d-inline-block mb-2 text-success">Série</strong>
+                        <h4 class="mb-1">Game of Thrones</h4>
+                        <div class="mb-1 text-muted">50 min</div>
+                        <p><small>Nine noble families fight for control over the lands of Westeros,
+                                while an
+                                ancient enemy returns...</small>
+                        </p>
+                        <div class="d-flex" style="color: orange;">
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-fill"></i>
+                            <i class="bi bi-star-half"></i>
+                            <i class="bi bi-star"></i>
+                            <span class="ps-1">3.7</span>
+                        </div>
+                        <a href="" class="fs-1 mt-3 text-danger align-self-start">
+                            <i class="bi bi-arrow-right-square"></i>
+                        </a>
+                        
+                    </div>
+                </div>
+            </div>
 
             <nav class="col-lg-9 offset-lg-3">
                 <ul class="pagination">
