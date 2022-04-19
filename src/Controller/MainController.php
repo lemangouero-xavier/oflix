@@ -78,7 +78,13 @@ class MainController extends AbstractController
         //objectif: pouvoir changer de theme et stocker le nom theme actif et/ou passer à l'autre theme
         // anciennement $_SESSION['theme]
         // fournit 'netflix' si la clé theme n'existe
-        $theme = $session->get('theme', 'netflix');
+        if (!$session->has('theme')) {
+            $session->set('theme', 'netflix');
+        }
+        $theme = $session->get('theme');
+        // il existre une version raccourci pour a la fois tester si la clé existe et nous donne une valeur 
+        //! cela ne set pas la valeur par defaut
+        //$theme = $session->('theme', 'netflix')
         if ($theme== 'netflix') {
             $session->set('theme', 'allocine');
         } else {
