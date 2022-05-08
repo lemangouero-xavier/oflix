@@ -1,24 +1,11 @@
-{#ceci est un commentaire twig#}
-{# on utilise {%%} pour toutes les commandes
-    extends
-    block
-    if
-    for / foreach
-    en soit, tout ce qui n'ecrit pas du code donc tout le coté dynamique
-#}
 {% extends 'base.html.twig' %}
 
 {% block title %}
-oflix
+oflix - list
 {% endblock %}
 
 {% block body %}
-{# pour ecrire une variable, on utilise {{ }} 
-c'est comme le short echo tag de php
-<h1>{{ information_test }}</h1>
-#}
-
-    <!-- main -->
+<!-- main -->
     <div class="my-5 py-5 text-center">
         <img src="{{ asset('assets/favicon.png') }}" height="100" alt="Logo O'flix" class="mb-3">
         <h1 class="display-6 fw-bold">Films, séries TV et popcorn en illimité.</h1>
@@ -55,7 +42,7 @@ c'est comme le short echo tag de php
 
             <div class="col-12 col-lg-9">
 
-                <h2 class="text-muted fw-bold mb-4">Les nouveautés</h2>
+                <h2 class="text-muted fw-bold mb-4">Les films et séries / Résultats de recherche</h2>
                 {# en mettant key dans le for in, je demande a la boucle de me donner la clé et la valeur #}
                 {% for key, movie in movies %}
                     <div class="row g-0 border rounded overflow-hidden flex-md-row mb-4 shadow-sm bg-white position-relative">
@@ -79,7 +66,7 @@ c'est comme le short echo tag de php
                             <i class="bi bi-star-half"></i>
                             <span class="ps-1">{{ movie.rating }}</span>
                         </div>
-                        <a href="{{ path('main_show', {'id' : key}) }}" class="fs-1 mt-3 text-danger align-self-start">
+                        <a href="{{ path('movies', {'id' : movie.id}) }}" class="fs-1 mt-3 text-danger align-self-start">
                             <i class="bi bi-arrow-right-square"></i>
                         </a>
                     </div>
@@ -107,5 +94,4 @@ c'est comme le short echo tag de php
         </div>
 
     </div>
-    
 {% endblock %}
