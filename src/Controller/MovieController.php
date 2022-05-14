@@ -14,14 +14,14 @@ use Symfony\Component\Routing\Annotation\Route;
 class MovieController extends AbstractController
 {
     /**
-     * @Route("/movie/{id}", name="app_movie", requirements={"id": "\d+"})
+     * @Route("/movie/{id}", name="movie", requirements={"id": "\d+"})
      */
     public function show(MovieRepository $movieRepository, int $id): Response
     {
         $movie = $movieRepository->find($id);
         dump($movie);
         return $this->render('movie/show.html.twig', [
-            'controller_name' => 'MovieController',
+            
             'movie' => $movie
         ]);
     }

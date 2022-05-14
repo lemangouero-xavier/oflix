@@ -1,7 +1,7 @@
 {% extends 'base.html.twig' %}
 
 {% block title %}
-oflix - $titre
+oflix - titre
 {% endblock %}
 
 {% block body %}
@@ -50,9 +50,9 @@ oflix - $titre
 
                         <h2>3 Saisons</h2>
                         <ul class="list-unstyled">
-                            <li><span class="badge bg-danger fs-6 mb-2">Saison 1</span><small class="ms-1">(10 épisodes)</small></li>
-                            <li><span class="badge bg-danger fs-6 mb-2">Saison 2</span><small class="ms-1">(11 épisodes)</small></li>
-                            <li><span class="badge bg-danger fs-6 mb-2">Saison 3</span><small class="ms-1">(12 épisodes)</small></li>
+                            {% for season in movie.seasons %}
+                            <li><span class="badge bg-danger fs-6 mb-2">Saison {{ season.number}}</span><small class="ms-1"> ({{ season.episodeNumber }} épisodes)</small></li>
+                            {% endfor %}
                         </ul>
 
                         <dl class="row">
