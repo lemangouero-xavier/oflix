@@ -65,14 +65,16 @@ class Movie
     private $seasons;
 
     /**
-     * @ORM\ManyToMany(targetEntity=Genre::class, inversedBy="movies")
+     * @ORM\ManyToMany(targetEntity=Genre::class, inversedBy="movies", fetch="EAGER")
      */
     private $genres;
+
 
     public function __construct()
     {
         $this->seasons = new ArrayCollection();
         $this->genres = new ArrayCollection();
+        
     }
 
     public function getId(): ?int
@@ -229,4 +231,6 @@ class Movie
 
         return $this;
     }
+
+    
 }

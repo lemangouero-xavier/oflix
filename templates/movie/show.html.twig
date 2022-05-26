@@ -57,9 +57,11 @@ oflix - titre
                         <dl class="row">
                             <dt class="col-sm-12">Avec</dt>
                             <dd class="col-sm-12">
-                                Acteur 1 (Tilt)<br>
-                                Acteur 2 (La reine)<br>
-                                Acteur 3 (Franz)<br>
+                                {% for actor in movie.actors %}
+                                    {{ actor.firstname }} (Tilt)<br>
+                                {% else %}
+                                    <em>pas d'acteurs</em>
+                                {% endfor %}
                             </dd>
                             <dt class="col-sm-12">Pays</dt>
                             <dd class="col-sm-12">USA</dd>
