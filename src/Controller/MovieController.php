@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Repository\CastingRepository;
 use App\Repository\MovieRepository;
 use DateTime;
 use Doctrine\ORM\EntityManagerInterface;
@@ -16,13 +17,24 @@ class MovieController extends AbstractController
     /**
      * @Route("/movie/{id}", name="movie", requirements={"id": "\d+"})
      */
-    public function show(MovieRepository $movieRepository, int $id): Response
+    public function show(MovieRepository $movieRepository, int $id, CastingRepository $castingRepo): Response
     {
         $movie = $movieRepository->find($id);
         dump($movie);
+        //je veux les casting d un film en particulier : $id
+        // j utilise le findby por faire un find avec un critere
+        // en sql : movie_id = $id
+        // je suis en objet / entité
+        // je dis donc: fait un filtre sur la propriété 'movie' de l objet 'casting'
+        // la valeur de cette propriete doit etre egale à un objet Movie
+        // je lui donne l objet pour faire le filtre
+        // $criteria: ['propriété' => valeur]
+        // $orderby: ['proprieté' => 'ASC/DESC']
+        $castingFilterByMovie = $castingRepo->findBy(['movie' => $movie], ['creditOrder' => 'ASC']);
         return $this->render('movie/show.html.twig', [
             
-            'movie' => $movie
+            'movie' => $movie,
+            'castingFilterByMovie' => $castingFilterByMovie
         ]);
     }
 

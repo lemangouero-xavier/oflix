@@ -56,9 +56,19 @@ oflix - titre
 
                         <dl class="row">
                             <dt class="col-sm-12">Avec</dt>
+                            {#version en utilisant les casting et le lazi sans le tri #}
                             <dd class="col-sm-12">
-                                {% for actor in movie.actors %}
-                                    {{ actor.firstname }} (Tilt)<br>
+                                {% for casting in movie.castings %}
+                                    {{ casting.actor.firstname }} {{ casting.actor.lastname }} ({{ casting.role }})<br>
+                                {% else %}
+                                    <em>pas d'acteurs</em>
+                                {% endfor %}
+                            </dd>
+                            {#version en utilisant les casting recupéré a la main  et le lazi avec le tri #}
+                            <dt class="col-sm-12">Avec(le controller movieController)</dt>
+                            <dd class="col-sm-12">
+                                {% for casting in castingFilterByMovie %}
+                                    {{ casting.actor.firstname }} {{ casting.actor.lastname }} ({{ casting.role }})<br>
                                 {% else %}
                                     <em>pas d'acteurs</em>
                                 {% endfor %}
@@ -66,7 +76,8 @@ oflix - titre
                             <dt class="col-sm-12">Pays</dt>
                             <dd class="col-sm-12">USA</dd>
                             <dt class="col-sm-12">Année</dt>
-                            {#<dd class="col-sm-12">{{ movie.releaseDate }}</dd>#}
+                            <dd class="col-sm-12">{{ movie.releaseDate|date("d/m/Y") }}</dd>
+                            {#celle ci ne fonctionne pas: <dd class="col-sm-12">{{ movie.releaseDate }}</dd>#}
                         </dl>
                     </div>
                 </div>

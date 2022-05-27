@@ -29,10 +29,15 @@ class Actor
      */
     private $lastname;
 
+    /**
+     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="actor")
+     */
+    private $castings;
+
 
     public function __construct()
     {
-        
+        $this->castings = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -60,6 +65,36 @@ class Actor
     public function setLastname(string $lastname): self
     {
         $this->lastname = $lastname;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Casting>
+     */
+    public function getCastings(): Collection
+    {
+        return $this->castings;
+    }
+
+    public function addCasting(Casting $casting): self
+    {
+        if (!$this->castings->contains($casting)) {
+            $this->castings[] = $casting;
+            $casting->setActor($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCasting(Casting $casting): self
+    {
+        if ($this->castings->removeElement($casting)) {
+            // set the owning side to null (unless already changed)
+            if ($casting->getActor() === $this) {
+                $casting->setActor(null);
+            }
+        }
 
         return $this;
     }
