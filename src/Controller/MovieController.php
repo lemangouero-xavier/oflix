@@ -46,7 +46,9 @@ class MovieController extends AbstractController
      */
     public function  showAll(MovieRepository $repository): Response 
     {
-        $movies = $repository->findAll();
+        //$movies = $repository->findAll();
+        //$movies = $repository->findAllOrderedByTitle();
+        $movies = $repository->findAllOrderedByTitleDQL();
         dump($movies);
         return $this->render('movie/list.html.twig', [
             'movies' => $movies

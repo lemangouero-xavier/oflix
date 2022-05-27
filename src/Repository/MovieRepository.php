@@ -20,6 +20,40 @@ class MovieRepository extends ServiceEntityRepository
     {
         parent::__construct($registry, Movie::class);
     }
+    /**
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findAllOrderedByTitle() 
+    {
+        // pour faire une requete, je dois donner un nom a la table: un alias, comme dans le from sql: FROM table t_alias
+        $resultats = $this->createQueryBuilder('m')
+        // a partir d ici , on utilise l alias pour representer ma table
+        // je trie sur le title de ma table
+            ->orderBy('m.title', 'DESC')
+            // l avant derniere instruction est de generer la requete
+            ->getQuery()
+            // et la derniere instruction est d executer la requete 
+            // on recoit donc les resultats a partir de la 
+            ->getResult();
+
+        return $resultats;
+
+    }
+    /**
+     * @return Movie[] Returns an array of Movie objects
+     */
+    public function findAllOrderedByTitleDQL() 
+    {
+        // le repository ne sait pas faire de DQl(c'est comme sql mais via Doctrine Query Language), on est obligé de contacter le manager 
+        // dans le select, on dit que l on veut toute l'entité en utilisant l'alias
+        $entityManager = $this->getEntityManager();
+        $query = $entityManager->createQuery(
+            'SELECT tagada
+            FROM App\Entity\Movie tagada
+            ORDER BY tagada.title DESC');
+        // returns an array of product objects
+        return $query->getResult();
+    }
 
     /**
      * @throws ORMException
