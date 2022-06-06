@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit Movie{% endblock %}
+
+{% block body %}
+    <div class="container">
+        <div class="w-75 p-3 mx-auto mt-5" style="background-color: #eee;">
+            <a href="{{ path('app_back_movie_index') }}" class="btn btn-info">back to list</a>
+            <h1>Edit Movie</h1>
+                <div class="test">
+                {{ include('back/movie/_form.html.twig', {'button_label': 'Update'}) }}
+
+                {{ include('back/movie/_delete_form.html.twig') }}
+                </div>
+        </div>
+    </div>
+{% endblock %}
