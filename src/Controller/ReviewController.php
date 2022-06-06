@@ -35,7 +35,7 @@ class ReviewController extends AbstractController
             $doctrine->persist($review);
             $doctrine->flush();
 
-            $this->redirectToRoute('movie', ['id' => $movie->getId()]);
+            return $this->redirectToRoute('movie', ['id' => $movie->getId()]);
         }
         
         return $this->renderForm('review/index.html.twig',[
