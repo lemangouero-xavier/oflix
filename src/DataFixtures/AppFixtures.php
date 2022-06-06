@@ -11,6 +11,7 @@ use DateTime;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\DBAL\Connection;
 use Doctrine\Persistence\ObjectManager;
+use Faker;
 
 class AppFixtures extends Fixture
 {
@@ -40,6 +41,10 @@ class AppFixtures extends Fixture
     {
         $this->truncate();
 
+        // apres avoir installer Faker via: composer require fakerphp/faker
+        // comme faker propose des methodes static, on a pas besoin de faire de l injection de dépendance 
+        $faker = Faker\Factory::create('fr_FR');
+
         /******************* Genre **********************/
 
         // tableau pour reutiliser les genres plus tard
@@ -63,10 +68,10 @@ class AppFixtures extends Fixture
 
         /******************* Actor **********************/
         $allActor = [];
-        for ($n=0; $n <200; $n++) {
+        for ($n=0; $n <30; $n++) {
             $actor = new Actor();
-            $actor->setFirstname("Prénom #" . $n);
-            $actor->setLastname("Nom #" . $n);
+            $actor->setFirstname($faker->firstname());
+            $actor->setLastname($faker->lastname());
 
             $allActor[] = $actor;
             $manager->persist($actor);
@@ -78,13 +83,13 @@ class AppFixtures extends Fixture
         for($i = 1; $i<20; $i++)
         {//je veux pouvoir creer un movie
             $newMovie = new Movie();
-            $newMovie->setTitle("Film #" . $i);
+            $newMovie->setTitle($faker->words(3, true));
             $newMovie->setDuration(rand(90, 180));
             $type = rand(1, 2) == 1 ? 'Film' : 'Série';
             $newMovie->setType($type);
-            $newMovie->setReleaseDate(new DateTime("now"));
-            $newMovie->setSummary("lorem ncbcbcbrybcerirehfcerik rfhreiufrekfnberh freihfreiufrekf refie ferhfreifhrekfhreu");
-            $newMovie->setSynopsis("lorem ipsum ufrioufroei fureiufireo ffireufierufoer u_vuerjjrereoi frejncdshfferuffer ferfherouifher");
+            $newMovie->setReleaseDate($faker->dateTimeBetween('-20years', 'now'));
+            $newMovie->setSummary($faker->sentence());
+            $newMovie->setSynopsis($faker->realText($maxNbChars = 200, $indexSize = 2));
             //tres utile pour avoir des images differentes aleatoires pour le dev
             $newMovie->setPoster('https://picsum.photos/id/'.mt_rand(1,100).'/200/300');
 
@@ -116,12 +121,12 @@ class AppFixtures extends Fixture
             }
 
             /******** Ajout Casting **********/
-            for ($x=0; $x < 100; $x++){
+            for ($x=0; $x < 30; $x++){
                 // j ai une liste d acteurs $allActor
             //, avec un liste de film, j ai son id(objet) $allMovie
             // je vais creer un casting 
             $casting = new Casting();
-            $casting->setRole("Role #" . $x);
+            $casting->setRole($faker->name());
             $casting->setCreditOrder($x);
             // je vais lui donner un movie depuis la liste
             $randomMovie = $allMovie[mt_rand(0, count($allMovie) - 1)];

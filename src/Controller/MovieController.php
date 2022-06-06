@@ -3,6 +3,8 @@
 namespace App\Controller;
 
 use App\Entity\Movie;
+use App\Entity\Review;
+use App\Form\ReviewType;
 use App\Repository\CastingRepository;
 use App\Repository\MovieRepository;
 use DateTime;
@@ -31,10 +33,15 @@ class MovieController extends AbstractController
         // $criteria: ['propriété' => valeur]
         // $orderby: ['proprieté' => 'ASC/DESC']
         $castingFilterByMovie = $castingRepo->findBy(['movie' => $movie], ['creditOrder' => 'ASC']);
+
+        // dreation du formulaire pour ajouter un review
+        //$formulaire = $this->createForm(ReviewType::class, new Review());
+
         return $this->render('movie/show.html.twig', [
             
             'movie' => $movie,
             'castingFilterByMovie' => $castingFilterByMovie
+            
         ]);
     }
 
