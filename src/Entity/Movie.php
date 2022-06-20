@@ -71,7 +71,7 @@ class Movie
     private $genres;
 
     /**
-     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie")
+     * @ORM\OneToMany(targetEntity=Casting::class, mappedBy="movie", orphanRemoval=true)
      * @ORM\OrderBy({"creditOrder" = "ASC"})
      */
     private $castings;
@@ -269,6 +269,13 @@ class Movie
 
         return $this;
     }
+
+    public function getSomethingForCastingForm() 
+    {
+        return $this->title . ' (' . $this->duration .' min.)';
+    }
+
+
 
     
 }
