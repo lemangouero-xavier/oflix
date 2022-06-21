@@ -35,8 +35,29 @@ security:
     # Easy way to control access for large sections of your site
     # Note: Only the *first* access control that matches will be used
     access_control:
-        # - { path: ^/admin, roles: ROLE_ADMIN }
+        # ^ début de l'url
+        # /back pour limiter au backoffice
+        # [^/] tout ce qui n'est pas un / (=> le nom du modèle peut importe le model)
+        # + 1 ou plusieurs fois le caractère précédente
+        # / le slash
+        # \d+ un nombre
+        # $ fin de l'url
+        - { path: ^/back/([^/]+)/\d+$, roles: ROLE_ADMIN, methods: [POST] } # route de delete de n'importe quel modèle
+        - { path: ^/back/[^/]+/\d+/edit$, roles: ROLE_MANAGER } # route de delete de n'importe quel modèle
+        # - { path: ^/back/[^/]+/new$, roles: ROLE_ADMIN } # routes add de n'importe quel modèle
+        - { path: ^/back/[^/]+/\d+$, roles: ROLE_MANAGER, methods: [GET] } # route de show de n'importe quel modèle
+        - { path: ^/back/[^/]+/$, roles: ROLE_MANAGER } # route de liste de n'importe quel modèle
+        - { path: ^/movie/\d+/review, roles: ROLE_USER }
+        - { path: ^/back/, roles: ROLE_MANAGER }
         # - { path: ^/profile, roles: ROLE_USER }
+        # ACL pour notre API
+        - { path: ^/api/login, roles: PUBLIC_ACCESS }
+        - { path: ^/api, roles: PUBLIC_ACCESS }
+        - { path: ^/api/secure,       roles: IS_AUTHENTICATED_FULLY }
+    
+    role_hierarchy:
+        ROLE_ADMIN:   ROLE_MANAGER
+        ROLE_MANAGER: ROLE_USER
 
 when@test:
     security:
